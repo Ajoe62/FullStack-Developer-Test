@@ -8,7 +8,7 @@ const galleryJSON: string = `[
   { "filename": "Image-5.png", "altText": "Image Five" },
   { "filename": "Image-6.png", "altText": "Image Six" },
   { "filename": "Image-7.png", "altText": "Image Seven" },
-  { "filename": "Image-8.png", "altText": "Image Eight" },
+  { "filename": "Image-8.png", "altText": "Image Eight" }
 ]`;
 
 export interface GalleryImage {
@@ -18,12 +18,17 @@ export interface GalleryImage {
 
 export interface GalleryData {
   data: GalleryImage[];
+  reverseSort: () => void;
 }
 
 export function useGalleryData(): GalleryData {
 
-  const [data] = useState<GalleryImage[]>(JSON.parse(galleryJSON) as GalleryImage[])
+  const [data, setData] = useState<GalleryImage[]>(JSON.parse(galleryJSON) as GalleryImage[])
 
-  return { data }
+  const reverseSort = () => {
+    setData([...data].reverse())
+  }
+
+  return { data, reverseSort }
 
 }
